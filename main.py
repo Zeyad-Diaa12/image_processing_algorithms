@@ -2,8 +2,9 @@ import gradio as gr
 import numpy as np
 import cv2
 from Algorithms.histogram_algorithm import HistogramEqualization
-from Algorithms.homogenity_operator import HomogeneityOperator
-from Algorithms.difference_operator import DifferenceOperator
+from Algorithms.homogenity_algorithm import HomogeneityOperator
+from Algorithms.difference_algorithm import DifferenceOperator
+from Algorithms.difference_of_gaussians import DifferenceOfGaussians
 
 ALGORITHMS = {}
 def add_algorithm(algorithm_instance):
@@ -12,9 +13,13 @@ def add_algorithm(algorithm_instance):
 add_algorithm(HistogramEqualization())
 add_algorithm(HomogeneityOperator())
 add_algorithm(DifferenceOperator())
+add_algorithm(DifferenceOfGaussians())
 
 def process_image(image, algorithm):
     if algorithm in ALGORITHMS:
+        if algorithm == "Difference Of Gaussians":
+            dog, _, _ = ALGORITHMS[algorithm].process(image)
+            return dog
         return ALGORITHMS[algorithm].process(image)
     else:
         return "Selected algorithm is not implemented"
