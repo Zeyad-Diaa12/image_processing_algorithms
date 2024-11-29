@@ -26,7 +26,7 @@ def process_image(image, algorithm):
     else:
         return "Selected algorithm is not implemented"
 
-def view_histograms(image, algorithm):
+def view_graph(image, algorithm):
     if algorithm in ALGORITHMS:
         return ALGORITHMS[algorithm].plot_graph(image)
     else:
@@ -55,7 +55,7 @@ with gr.Blocks() as demo:
         outputs=[output_image]
     )
     graph_button.click(
-        view_histograms,
+        view_graph,
         inputs=[image_input, algorithm_selector],
         outputs=[graph_output]
     )
