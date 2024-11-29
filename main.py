@@ -47,5 +47,5 @@ with gr.Blocks() as demo:
         inputs=[image_input, algorithm_selector],
         outputs=[histogram_output]
     )
-
+    
 demo.launch()

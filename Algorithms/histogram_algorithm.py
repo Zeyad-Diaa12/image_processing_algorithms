@@ -11,7 +11,7 @@ class HistogramEqualization(BaseAlgorithm):
         return "Histogram Equalization"
     
     def process(self, image):
-        image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
+        image = self.rgb_to_grayscale(image)
 
         flat_image = image.flatten()
         
@@ -28,8 +28,7 @@ class HistogramEqualization(BaseAlgorithm):
         return equalized_image
     
     def plot_graph(self, image):
-        grayscale_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
-        
+        grayscale_image = self.rgb_to_grayscale(image)
         equalized_image = self.process(image)
 
         original_hist = cv2.calcHist([grayscale_image], [0], None, [256], [0, 256])
