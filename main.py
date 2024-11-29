@@ -2,12 +2,14 @@ import gradio as gr
 import numpy as np
 import cv2
 from Algorithms.histogram_algorithm import HistogramEqualization
+from Algorithms.halftone_algorithm import Halftone
 
 ALGORITHMS = {}
 def add_algorithm(algorithm_instance):
     ALGORITHMS[algorithm_instance.name()] = algorithm_instance
 
 add_algorithm(HistogramEqualization())
+add_algorithm(Halftone())
 
 def process_image(image, algorithm):
     if algorithm in ALGORITHMS:
@@ -31,6 +33,7 @@ with gr.Blocks() as demo:
             label="Select Image Processing Algorithm",
             value="Histogram Equalization"
         )
+            
     
     output_image = gr.Image(label="Processed Image")
     histogram_output = gr.Image(label="Histograms Before and After")
