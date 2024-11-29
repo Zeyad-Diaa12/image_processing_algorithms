@@ -11,14 +11,10 @@ class Halftone(BaseAlgorithm):
 
     def process(self, image):
     
-        if isinstance(image, Image.Image):
-            image = np.array(image)
+        gray_scale =self.rgb_to_grayscale(image)
+        threshold=self.calculate_threshold(gray_scale)
 
-        if len(image.shape) == 3:  
-            image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-
-        threshold = np.mean(image)
-        halftoned_image = np.where(image > threshold, 255, 0).astype(np.uint8)
+        halftoned_image = np.where(gray_scale > threshold, 255, 0).astype(np.uint8)
 
         return halftoned_image
 
