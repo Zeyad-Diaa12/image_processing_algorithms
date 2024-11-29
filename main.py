@@ -2,6 +2,9 @@ import gradio as gr
 import numpy as np
 import cv2
 from Algorithms.histogram_algorithm import HistogramEqualization
+from Algorithms.homogenity_algorithm import HomogeneityOperator
+from Algorithms.difference_algorithm import DifferenceOperator
+from Algorithms.difference_of_gaussians import DifferenceOfGaussians
 from Algorithms.halftone_algorithm import Halftone
 
 ALGORITHMS = {}
@@ -9,10 +12,16 @@ def add_algorithm(algorithm_instance):
     ALGORITHMS[algorithm_instance.name()] = algorithm_instance
 
 add_algorithm(HistogramEqualization())
+add_algorithm(HomogeneityOperator())
+add_algorithm(DifferenceOperator())
+add_algorithm(DifferenceOfGaussians())
 add_algorithm(Halftone())
 
 def process_image(image, algorithm):
     if algorithm in ALGORITHMS:
+        if algorithm == "Difference Of Gaussians":
+            dog, _, _ = ALGORITHMS[algorithm].process(image)
+            return dog
         return ALGORITHMS[algorithm].process(image)
     else:
         return "Selected algorithm is not implemented"
@@ -36,19 +45,19 @@ with gr.Blocks() as demo:
             
     
     output_image = gr.Image(label="Processed Image")
-    histogram_output = gr.Image(label="Histograms Before and After")
+    graph_output = gr.Image(label="Image before and after")
     process_button = gr.Button("Process Image")
-    histogram_button = gr.Button("View Histograms")
+    graph_button = gr.Button("View Graph")
     
     process_button.click(
         process_image,
         inputs=[image_input, algorithm_selector],
         outputs=[output_image]
     )
-    histogram_button.click(
+    graph_button.click(
         view_histograms,
         inputs=[image_input, algorithm_selector],
-        outputs=[histogram_output]
+        outputs=[graph_output]
     )
-
+    
 demo.launch()
