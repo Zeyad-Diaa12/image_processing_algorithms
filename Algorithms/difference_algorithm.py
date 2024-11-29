@@ -8,7 +8,7 @@ from .base_algorithm import BaseAlgorithm
 class DifferenceOperator(BaseAlgorithm):
 
     def name(self):
-        return "DifferenceOperator"
+        return "Difference Operator"
     
     def process(self, image):
         grayscale_image = self.rgb_to_grayscale(image)

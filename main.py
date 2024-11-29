@@ -6,6 +6,9 @@ from Algorithms.homogenity_algorithm import HomogeneityOperator
 from Algorithms.difference_algorithm import DifferenceOperator
 from Algorithms.difference_of_gaussians import DifferenceOfGaussians
 from Algorithms.halftone_algorithm import Halftone
+from Algorithms.contrast_based_algorithm import ContrastBasedAlgorithm
+from Algorithms.variance_algorithm import VarianceOperator
+from Algorithms.range_algorithm import RangeOperator
 
 ALGORITHMS = {}
 def add_algorithm(algorithm_instance):
@@ -16,6 +19,9 @@ add_algorithm(HomogeneityOperator())
 add_algorithm(DifferenceOperator())
 add_algorithm(DifferenceOfGaussians())
 add_algorithm(Halftone())
+add_algorithm(ContrastBasedAlgorithm())
+add_algorithm(VarianceOperator())
+add_algorithm(RangeOperator())
 
 def process_image(image, algorithm):
     if algorithm in ALGORITHMS:
