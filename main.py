@@ -5,6 +5,7 @@ from Algorithms.histogram_algorithm import HistogramEqualization
 from Algorithms.homogenity_algorithm import HomogeneityOperator
 from Algorithms.difference_algorithm import DifferenceOperator
 from Algorithms.difference_of_gaussians import DifferenceOfGaussians
+from Algorithms.halftone_algorithm import Halftone
 
 ALGORITHMS = {}
 def add_algorithm(algorithm_instance):
@@ -14,6 +15,7 @@ add_algorithm(HistogramEqualization())
 add_algorithm(HomogeneityOperator())
 add_algorithm(DifferenceOperator())
 add_algorithm(DifferenceOfGaussians())
+add_algorithm(Halftone())
 
 def process_image(image, algorithm):
     if algorithm in ALGORITHMS:
@@ -40,6 +42,7 @@ with gr.Blocks() as demo:
             label="Select Image Processing Algorithm",
             value="Histogram Equalization"
         )
+            
     
     output_image = gr.Image(label="Processed Image")
     graph_output = gr.Image(label="Image before and after")
