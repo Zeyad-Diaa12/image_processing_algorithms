@@ -32,8 +32,6 @@ class HistogramPeakSegmentation(BaseAlgorithm):
         low_threshold = (peak1+peak2)/2
         high_threshold = peak2
 
-        print(low_threshold, high_threshold)
-
         segmented_imgae = np.zeros_like(image)
         
         segmented_imgae[(image >= low_threshold) & (image <= high_threshold)] = 255
