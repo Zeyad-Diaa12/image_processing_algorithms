@@ -13,6 +13,18 @@ from Algorithms.manual_histogram_segmentation import ManualHistogramSegmentation
 from Algorithms.histogram_peak_segmentation_algorithm import HistogramPeakSegmentation
 from Algorithms.histogram_valley_segmentation_algorithm import HistogramValleySegmentation
 from Algorithms.adaptive_histogram_segmentation_algorithm import AdaptiveHistogramSegmentation
+from Algorithms.advanced_halftone_algorithm import AdvancedHalftone
+from Algorithms.sobel_operator import SobelOperator
+from Algorithms.prewitt_operator import PrewittOperator
+from Algorithms.kirsch_compass_masks import KirschCompass
+from Algorithms.high_pass_filter import HighPassFilter
+from Algorithms.low_pass_filter import LowPassFilter
+from Algorithms.add_images import AddImage
+from Algorithms.subtract_images import SubtractImage
+from Algorithms.invert_image import InvertImage
+from Algorithms.median_filter import MedianFilter
+
+
 
 ALGORITHMS = {}
 def add_algorithm(algorithm_instance):
@@ -30,6 +42,17 @@ add_algorithm(ManualHistogramSegmentation())
 add_algorithm(HistogramPeakSegmentation())
 add_algorithm(HistogramValleySegmentation())
 add_algorithm(AdaptiveHistogramSegmentation())
+add_algorithm(AdvancedHalftone())
+add_algorithm(SobelOperator())
+add_algorithm(PrewittOperator())
+add_algorithm(KirschCompass())
+add_algorithm(HighPassFilter())
+add_algorithm(LowPassFilter())
+add_algorithm(AddImage())
+add_algorithm(SubtractImage())
+add_algorithm(InvertImage())
+add_algorithm(MedianFilter())
+
 
 def process_image(image, algorithm, low_threshold=None, high_threshold=None, operator_threshold=None):
 
@@ -50,7 +73,11 @@ def process_image(image, algorithm, low_threshold=None, high_threshold=None, ope
             dog,_,_ = ALGORITHMS[algorithm].process(image)
             return dog
         
-        return ALGORITHMS[algorithm].process(image)
+        elif algorithm == "Kirsch Compass Masks":
+            kirsch_filtered, _ = ALGORITHMS[algorithm].process(image)
+            return kirsch_filtered
+        else:
+            return ALGORITHMS[algorithm].process(image)
     else:
         return "Selected algorithm is not implemented"
 
