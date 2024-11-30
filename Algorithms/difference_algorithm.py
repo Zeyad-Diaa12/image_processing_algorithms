@@ -8,15 +8,13 @@ from .base_algorithm import BaseAlgorithm
 class DifferenceOperator(BaseAlgorithm):
 
     def name(self):
-        return "DifferenceOperator"
+        return "Difference Operator"
     
-    def process(self, image):
+    def process(self, image, threshold):
         grayscale_image = self.rgb_to_grayscale(image)
 
         height, width = grayscale_image.shape
         
-        threshold = self.calculate_threshold(grayscale_image)
-
         difference_image = np.zeros_like(grayscale_image)
 
         for i in range(1, height - 1):
@@ -33,9 +31,9 @@ class DifferenceOperator(BaseAlgorithm):
 
         return difference_image
     
-    def plot_graph(self, image):
+    def plot_graph(self, image, threshold):
         grayscale_image = self.rgb_to_grayscale(image)
-        difference_image = self.process(image)
+        difference_image = self.process(image, threshold)
 
         plt.figure(figsize=(10, 5))
         plt.subplot(1, 2, 1)

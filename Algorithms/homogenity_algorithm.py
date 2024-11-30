@@ -10,13 +10,11 @@ class HomogeneityOperator(BaseAlgorithm):
     def name(self):
         return "Homogeneity Operator"
     
-    def process(self, image):
+    def process(self, image, threshold):
         grayscale_image = self.rgb_to_grayscale(image)
 
         height, width = grayscale_image.shape
         
-        threshold = self.calculate_threshold(grayscale_image)
-
         homogeneity_image = np.zeros_like(grayscale_image)
 
         for i in range(1, height - 1):
@@ -38,9 +36,9 @@ class HomogeneityOperator(BaseAlgorithm):
 
         return homogeneity_image
     
-    def plot_graph(self, image):
+    def plot_graph(self, image, threshold):
         grayscale_image = self.rgb_to_grayscale(image)
-        homogenity_image = self.process(image)
+        homogenity_image = self.process(image, threshold)
 
         plt.figure(figsize=(10, 5))
         plt.subplot(1, 2, 1)
