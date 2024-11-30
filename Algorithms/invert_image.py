@@ -11,12 +11,12 @@ class InvertImage(BaseAlgorithm):
     def process(self, image):
         grayscale_image = self.rgb_to_grayscale(image)
 
-        rows, cols = len(grayscale_image), len(grayscale_image[0])
+        height, width = grayscale_image.shape
 
-        inverted_image = [[0] * cols for _ in range(rows)] 
+        inverted_image = np.zeros((height, width), dtype=np.uint8) 
 
-        for i in range(rows):
-            for j in range(cols):
+        for i in range(height):
+            for j in range(width):
                 inverted_image[i][j] = 255 - grayscale_image[i][j]
                 
         inverted_image = np.array(inverted_image, dtype=np.uint8)

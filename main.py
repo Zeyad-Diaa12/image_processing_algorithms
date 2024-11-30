@@ -15,6 +15,8 @@ from Algorithms.low_pass_filter import LowPassFilter
 from Algorithms.add_images import AddImage
 from Algorithms.subtract_images import SubtractImage
 from Algorithms.invert_image import InvertImage
+from Algorithms.median_filter import MedianFilter
+
 
 
 ALGORITHMS = {}
@@ -35,6 +37,8 @@ add_algorithm(LowPassFilter())
 add_algorithm(AddImage())
 add_algorithm(SubtractImage())
 add_algorithm(InvertImage())
+add_algorithm(MedianFilter())
+
 
 def process_image(image, algorithm):
     if algorithm in ALGORITHMS:

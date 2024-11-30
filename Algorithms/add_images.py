@@ -11,26 +11,20 @@ class AddImage(BaseAlgorithm):
     def process(self, image):
         grayscale_image = self.rgb_to_grayscale(image)
         
-        rows, cols = len(grayscale_image), len(grayscale_image[0])
-        image_copy = [[0] * cols for _ in range(rows)] 
+        height, width = grayscale_image.shape
+        image_copy = np.zeros((height, width))
         
-        for i in range(rows):
-            for j in range(cols):
+        for i in range(height):
+            for j in range(width):
                 image_copy[i][j] = grayscale_image[i][j]
 
-        added_image = [[0] * cols for _ in range(rows)] 
+        added_image = np.zeros((height, width), dtype=np.uint8) 
 
-        for i in range(rows):
-            for j in range(cols):
+        for i in range(height):
+            for j in range(width):
                 added_image[i][j] = grayscale_image[i][j] + image_copy[i][j]
-
-                if added_image[i][j] > 255:
-                    added_image[i][j] = 255
-                elif added_image[i][j] < 0:
-                    added_image[i][j] = 0
-                    
-        added_image = np.array(added_image, dtype=np.uint8)
-        
+                added_image[i][j] = max(0, min(255, added_image[i][j]))  
+                            
         return added_image
 
     
