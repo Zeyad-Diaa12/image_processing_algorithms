@@ -63,7 +63,7 @@ class KirschCompass(BaseAlgorithm):
                 max_index = responses.index(max_response)
 
                 kirsch_filtered[i - 1, j - 1] = max_response
-                kirsch_directions[i - 1, j - 1] = max_index
+                kirsch_directions[i - 1, j - 1] = max_index *45
 
         kirsch_filtered = (kirsch_filtered / kirsch_filtered.max()) * 255
         kirsch_filtered = kirsch_filtered.astype(np.uint8)
