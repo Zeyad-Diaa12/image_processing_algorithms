@@ -15,28 +15,29 @@ class HistogramPeakSegmentation(BaseAlgorithm):
         image = self.rgb_to_grayscale(image)
 
         flat_image = image.flatten()
-        
+
         hist = np.zeros(256, dtype=int)
         for pixel in flat_image:
             hist[pixel] += 1
 
-        peaks, _ = find_peaks(hist, height=0)
+        peaks = []
+        for i in range(1, len(hist) - 1):
+            if hist[i] > hist[i - 1] and hist[i] > hist[i + 1]:
+                peaks.append((i, hist[i]))
 
-        sorted_peaks = sorted(peaks, key=lambda x: hist[x], reverse=True)
+        if len(peaks) < 2:
+            raise ValueError("Not enough peaks found in the histogram to determine a threshold.")
 
-        peaks_indices = sorted_peaks[:2]
+        sorted_peaks = sorted(peaks, key=lambda x: x[1], reverse=True)
 
-        peak1 = peaks_indices[0]
-        peak2 = peaks_indices[1]
+        peak1, peak2 = sorted_peaks[0][0], sorted_peaks[1][0]
 
-        low_threshold = (peak1+peak2)/2
-        high_threshold = peak2
+        threshold = (peak1 + peak2) // 2
 
-        segmented_imgae = np.zeros_like(image)
-        
-        segmented_imgae[(image >= low_threshold) & (image <= high_threshold)] = 255
-        
-        return segmented_imgae
+        segmented_image = (image > threshold).astype(np.uint8) * 255
+
+        return segmented_image
+
     
     def plot_graph(self, image):
         grayscale_image = self.rgb_to_grayscale(image)
