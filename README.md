@@ -55,6 +55,11 @@ This project is organized so that the main application logic resides in `main.py
    cd image_processing_algorithms
 
 
+# Algorithms - Detailed Descriptions
+
+Below is a brief overview of each algorithm module in the Algorithms/ folder:
+
+
 ## Adaptive Histogram Segmentation
 **File:** `adaptive_histogram_segmentation_algorithm.py`  
 **Description:** Uses adaptive histogram analysis to segment an image. By considering local intensity distributions, it can handle images with varying illumination or contrast in different regions.
